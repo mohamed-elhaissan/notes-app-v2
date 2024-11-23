@@ -7,10 +7,10 @@ export default function Login() {
         <form
           className="flex flex-col"
           method="POST"
-          action="{{route('login.post')}}"
+          
         >
           <div className="flex flex-col">
-            <label>Email</label>
+            <label>cin</label>
             <input
               className="border py-2 pl-2 outline-[#A1A1AA] mb-2"
               name="email"

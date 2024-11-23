@@ -5,8 +5,8 @@ import App from "./App.jsx";
 import LoginProvider from "./context/LoginContext.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <LoginProvider>
-      <App />
-    </LoginProvider>
+      <LoginProvider>
+        <App />
+      </LoginProvider>
   </StrictMode>
 );
