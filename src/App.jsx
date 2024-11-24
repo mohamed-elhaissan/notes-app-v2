@@ -1,11 +1,9 @@
-import { useContext } from "react";
-import Login from "./components/Login";
-import { LoginCN } from "./context/LoginContext";
+import "./App.scss";
+import LoginForm from "./components/Login-form";
 function App() {
-  const {isLoginIn} = useContext(LoginCN);
   return (
     <>
-      {!isLoginIn ? <Login />  : 'urin'}
+      <LoginForm />
     </>
   );
 }
