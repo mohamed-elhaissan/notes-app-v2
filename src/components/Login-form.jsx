@@ -1,38 +1,52 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { motion } from "motion/react";
 import { AnimatePresence } from "motion/react";
 import axios from "axios";
-
-
-
-
-
-
+import { loading } from "../context/LoadingContext";
 
 const LoginForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [cin, setCin] = useState("");
-  const [password, setPassword] = useState("");
+  const { setIsLoading } = useContext(loading);
+  const [userCin, setUserCin] = useState("");
+  const [userPassword, setUserPassword] = useState("");
   const [err, setErr] = useState({ isvisible: false, txt: "" });
   async function handleLogin(e) {
     e.preventDefault();
-    if (cin.length == 0 || password.length == 0) {
+    setIsLoading(true);
+    if (userCin.length == 0 || userPassword.length == 0) {
       setErr({ isvisible: true, txt: "Please fill out the input field!" });
       const errorTimeout = setTimeout(() => {
         setErr({ isvisible: false, txt: "" });
       }, 2000);
       return () => clearTimeout(errorTimeout);
     } else {
-      await axios.post('https://notes.devlop.tech/api/login',{
-        cin,password
-      })
-      .then((data)=>console.log(data))
-      .catch((error)=>console.log(error)
-      )
+      console.log(userCin);
+      console.log(userPassword);
+
+      try {
+        const headers = {
+          "Content-Type": "application/json", // Same as in your fetch example
+        };
+
+        const data = JSON.stringify({
+          cin: "user_cin",
+          password: "user_password",
+        });
+
+        const response = await axios.post(
+          "https://notes.devlop.tech/api/login",
+          data, // JSON stringified body
+          { headers } // Custom headers
+        );
+
+        console.log("Response:", response.data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
-    setIsLoading(true);
+
+    setIsLoading(false);
   }
   return (
     <div className="flex items-center justify-center h-[100vh]">
@@ -57,7 +71,7 @@ const LoginForm = () => {
               type="text"
               className="border outline-[#A1A1AA] py-1 px-4 rounded-sm"
               onChange={(e) => {
-                setCin(e.target.value);
+                setUserCin(e.target.value);
               }}
             />
           </div>
@@ -66,13 +80,13 @@ const LoginForm = () => {
             <input
               type="Password"
               onChange={(e) => {
-                setPassword(e.target.value);
+                setUserPassword(e.target.value);
               }}
               className="border outline-[#A1A1AA] py-1 px-4 rounded-sm"
             />
           </div>
           <button className="bg-black shadow-custom-shadow rounded-md  py-3 mb-4 text-center text-white text-sm font-semibold ">
-            {isLoading ? <LoadingSection /> : "LOG IN"}
+            Login
           </button>
         </form>
       </div>
@@ -80,10 +94,6 @@ const LoginForm = () => {
   );
 };
 export default LoginForm;
-
-const LoadingSection = () => {
-  return "itsLoadilllllng";
-};
 
 const NotificationErro = ({ txtError }) => {
   return (
