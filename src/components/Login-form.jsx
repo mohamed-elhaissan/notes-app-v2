@@ -4,13 +4,15 @@ import { motion } from "motion/react";
 import { AnimatePresence } from "motion/react";
 import axios from "axios";
 import { loading } from "../context/LoadingContext";
-import { loginContext } from "../context/LoginAuth.jsx";
+import { userContext } from "../context/UserContext.jsx";
+import { useNavigate } from "react-router-dom";
 const LoginForm = () => {
   const { setIsLoading } = useContext(loading);
   const cinInputRef = useRef();
   const passwordInputRef = useRef();
-  const { auth, setAuth } = useContext(loginContext);
+  const { setUser } = useContext(userContext);
   const [err, setErr] = useState({ isvisible: false, txt: "" });
+  const Navigate = useNavigate();
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -20,7 +22,6 @@ const LoginForm = () => {
       passwordInputRef.current.length == 0
     ) {
       setErr({ isvisible: true, txt: "Please fill out the input field!" });
-    
     } else {
       try {
         const response = await axios.post(
@@ -37,25 +38,25 @@ const LoginForm = () => {
         );
 
         if (response) {
-          window.localStorage.setItem("token",response.data.token)
-          console.log(response);
-          
-          setAuth({ isLoged: true,user :  response });
-          console.log('this is the new data ',auth);
-          
+          setUser({
+            firstName: response.data.user.first_name,
+            lastName: response.data.user.last_Name,
+          });
+          window.localStorage.setItem("authToken", response.data.token);
+
+          Navigate("/dashboard");
         }
       } catch (error) {
         setErr({ isvisible: true, txt: error.response?.data.message });
-        
       }
     }
     cinInputRef.current.value = "";
     passwordInputRef.current.value = "";
     const timeOut = setTimeout(() => {
-      setErr({isvisible : false,txt : ''})
+      setErr({ isvisible: false, txt: "" });
     }, 1000);
     setIsLoading(false);
-    return ()=>clearTimeout(timeOut);
+    return () => clearTimeout(timeOut);
   }
   return (
     <div className="flex items-center justify-center h-[100vh]">
@@ -111,7 +112,6 @@ const NotificationErro = ({ txtError }) => {
         className="absolute flex items-center right-5 top-0 gap-4 bg-red-500 text-white px-2 py-1 rounded-md"
       >
         <p>{txtError} </p>
-        
       </motion.div>
     </div>
   );

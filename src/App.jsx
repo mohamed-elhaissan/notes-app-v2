@@ -4,12 +4,10 @@ import LoginForm from "./components/Login-form";
 import { loading } from "./context/LoadingContext";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "./components/NotFound";
-import { loginContext } from "./context/LoginAuth";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/dashboard/Dashboard";
 function App() {
   const { isLoading } = useContext(loading);
-  const { auth } = useContext(loginContext);
-  
+
   return (
     <>
       {isLoading && (
@@ -18,15 +16,10 @@ function App() {
         </div>
       )}
       <Routes>
-        {!auth.isLoged ? (
-          <>
-            <Route path="/" element={<LoginForm />} />
-            <Route path="*" element={<NotFound />} />
-          </>
-        ) : (
-          <>
-            <Route path="/" element={<Dashboard />} />
-          </>
+        <Route path="/" element={<LoginForm />} />
+        <Route path="*" element={<NotFound />} />
+        {window.localStorage.getItem("authToken") && (
+          <Route path="/Dashboard" element={<Dashboard />} />
         )}
       </Routes>
     </>
