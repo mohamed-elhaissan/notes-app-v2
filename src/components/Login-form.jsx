@@ -37,8 +37,12 @@ const LoginForm = () => {
         );
 
         if (response) {
-          setAuth({ isLoged: true, response });
-          console.log(auth);
+          window.localStorage.setItem("token",response.data.token)
+          console.log(response);
+          
+          setAuth({ isLoged: true,user :  response });
+          console.log('this is the new data ',auth);
+          
         }
       } catch (error) {
         setErr({ isvisible: true, txt: error.response?.data.message });
