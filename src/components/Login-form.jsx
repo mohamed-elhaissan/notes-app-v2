@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { useContext, useRef, useState } from "react";
-import { IoMdClose } from "react-icons/io";
 import { motion } from "motion/react";
 import { AnimatePresence } from "motion/react";
 import axios from "axios";
@@ -8,29 +7,21 @@ import { loading } from "../context/LoadingContext";
 import { loginContext } from "../context/LoginAuth.jsx";
 const LoginForm = () => {
   const { setIsLoading } = useContext(loading);
-  const cinInputRef = useRef()
-  const passwordInputRef = useRef()
-  const {setAuth} = useContext(loginContext)
+  const cinInputRef = useRef();
+  const passwordInputRef = useRef();
+  const { auth, setAuth } = useContext(loginContext);
   const [err, setErr] = useState({ isvisible: false, txt: "" });
-
-
-
-
-
-
 
   async function handleLogin(e) {
     e.preventDefault();
     setIsLoading(true);
-    if (cinInputRef.current.length == 0 || passwordInputRef.current.length == 0) {
+    if (
+      cinInputRef.current.length == 0 ||
+      passwordInputRef.current.length == 0
+    ) {
       setErr({ isvisible: true, txt: "Please fill out the input field!" });
-      const errorTimeout = setTimeout(() => {
-        setErr({ isvisible: false, txt: "" });
-      }, 2000);
-      return () => clearTimeout(errorTimeout);
+    
     } else {
-
-
       try {
         const response = await axios.post(
           "https://notes.devlop.tech/api/login",
@@ -46,14 +37,21 @@ const LoginForm = () => {
         );
 
         if (response) {
-          setAuth({isLoged : true,response})
+          setAuth({ isLoged: true, response });
+          console.log(auth);
         }
       } catch (error) {
-        console.error("Error:", error);
+        setErr({ isvisible: true, txt: error.response?.data.message });
+        
       }
     }
-
+    cinInputRef.current.value = "";
+    passwordInputRef.current.value = "";
+    const timeOut = setTimeout(() => {
+      setErr({isvisible : false,txt : ''})
+    }, 1000);
     setIsLoading(false);
+    return ()=>clearTimeout(timeOut);
   }
   return (
     <div className="flex items-center justify-center h-[100vh]">
@@ -78,14 +76,13 @@ const LoginForm = () => {
               ref={cinInputRef}
               type="text"
               className="border outline-[#A1A1AA] py-1 px-4 rounded-sm"
-              
             />
           </div>
           <div className="flex flex-col">
             <label htmlFor="password">Password</label>
-            <input ref={passwordInputRef}
+            <input
+              ref={passwordInputRef}
               type="Password"
-              
               className="border outline-[#A1A1AA] py-1 px-4 rounded-sm"
             />
           </div>
@@ -110,7 +107,7 @@ const NotificationErro = ({ txtError }) => {
         className="absolute flex items-center right-5 top-0 gap-4 bg-red-500 text-white px-2 py-1 rounded-md"
       >
         <p>{txtError} </p>
-        <IoMdClose />
+        
       </motion.div>
     </div>
   );
