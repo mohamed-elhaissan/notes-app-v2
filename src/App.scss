@@ -4,6 +4,10 @@
   padding: 0;
   margin: 0;
 }
+
+body {
+  background-color: #F3F3F3;
+}
 .loading div{
   animation: loadingAnimation 1s ease-in-out infinite;
 }
@@ -17,4 +21,24 @@
 span:has(a.active){
   background: #000;
   color: white;
+}
+.hoverred::before {
+  content: "";
+  
+  position: absolute;
+  left: 0;
+  bottom: 0%;
+  background: linear-gradient(to bottom,rgba(255,255,255,0),rgba(255,255,255,1)); 
+  height: 20%;
+  width: 100%;
+}
+.hoverred span::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #000;
+  z-index: -1;
+  width: 100%;
+  transition: ;
 }

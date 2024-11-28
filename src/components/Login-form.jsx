@@ -14,12 +14,13 @@ const LoginForm = () => {
   const [err, setErr] = useState({ isvisible: false, txt: "" });
   const Navigate = useNavigate();
 
+
   async function handleLogin(e) {
     e.preventDefault();
     setIsLoading(true);
     if (
-      cinInputRef.current.length == 0 ||
-      passwordInputRef.current.length == 0
+      cinInputRef.current.value == "" ||
+      passwordInputRef.current.value == ""
     ) {
       setErr({ isvisible: true, txt: "Please fill out the input field!" });
     } else {
@@ -40,11 +41,15 @@ const LoginForm = () => {
         if (response) {
           setUser({
             firstName: response.data.user.first_name,
-            lastName: response.data.user.last_Name,
+            lastName: response.data.user.last_name,
           });
           window.localStorage.setItem("authToken", response.data.token);
+          window.localStorage.setItem("userInfo", `${response.data.user.first_name} ${response.data.user.last_name} `);
+          console.log(response.data.user.first_name);
+          
+          
 
-          Navigate("/dashboard");
+          Navigate("/");
         }
       } catch (error) {
         setErr({ isvisible: true, txt: error.response?.data.message });
@@ -63,7 +68,16 @@ const LoginForm = () => {
       <AnimatePresence>
         {err.isvisible && <NotificationErro txtError={err.txt} />}
       </AnimatePresence>
-      <div className="bg-white p-4 rounded-lg w-[30%]">
+      <motion.div 
+      initial = {{y : -20,opacity : 0 }}
+      animate = {{y : 0,opacity : 1 }}
+      transition={{
+        delay: 0.7 ,
+        type: "spring",
+        stiffness: 100,
+        damping: 10,
+      }}
+      className="bg-white p-4 rounded-lg w-[30%]">
         <h1 className="text-center font-semibold text-2xl my-2">
           Welcome back!
         </h1>
@@ -77,7 +91,7 @@ const LoginForm = () => {
         >
           <div className="flex flex-col">
             <label htmlFor="cin">cin</label>
-            <input
+            <input  value={"JT113187"}
               ref={cinInputRef}
               type="text"
               className="border outline-[#A1A1AA] py-1 px-4 rounded-sm"
@@ -85,17 +99,25 @@ const LoginForm = () => {
           </div>
           <div className="flex flex-col">
             <label htmlFor="password">Password</label>
-            <input
+            <input  value={"123456"}
               ref={passwordInputRef}
               type="Password"
               className="border outline-[#A1A1AA] py-1 px-4 rounded-sm"
             />
           </div>
-          <button className="bg-black shadow-custom-shadow rounded-md  py-3 mb-4 text-center text-white text-sm font-semibold ">
+          <motion.button 
+          whileHover={{
+            background : '#252329',
+            scale: 1.01
+          }}
+          whileTap={{ scale: 0.9 }}
+      
+          
+          className="hoveredElement border bg-black shadow-custom-shadow rounded-md  py-3 mb-4 text-center text-white text-sm font-semibold ">
             Login
-          </button>
+          </motion.button>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 };
