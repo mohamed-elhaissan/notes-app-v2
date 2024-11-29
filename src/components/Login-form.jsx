@@ -2,7 +2,7 @@
 import { useContext, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { AnimatePresence } from "motion/react";
-import axios from "axios";
+import { request } from "../utils/axiosUtilis.jsx";
 import { loading } from "../context/LoadingContext";
 import { userContext } from "../context/UserContext.jsx";
 import { useNavigate } from "react-router-dom";
@@ -24,18 +24,17 @@ const LoginForm = () => {
       setErr({ isvisible: true, txt: "Please fill out the input field!" });
     } else {
       try {
-        const response = await axios.post(
-          "https://notes.devlop.tech/api/login",
-          JSON.stringify({
+        const response = await request({
+          method: "post",
+          url: "/login",
+          data: {
             cin: cinInputRef.current.value,
             password: passwordInputRef.current.value,
-          }),
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+          },
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
         if (response) {
           setUser({
@@ -52,6 +51,8 @@ const LoginForm = () => {
           Navigate("/dashboard");
         }
       } catch (error) {
+        console.error(error);
+        
         setErr({ isvisible: true, txt: error.response?.data.message });
       } finally {
         setIsLoading(false);
@@ -103,7 +104,7 @@ const LoginForm = () => {
           <div className="flex flex-col">
             <label htmlFor="password">Password</label>
             <input
-              value={"123456"}
+              value={"1223456"}
               ref={passwordInputRef}
               type="Password"
               className="border outline-[#A1A1AA] py-1 px-4 rounded-sm"
