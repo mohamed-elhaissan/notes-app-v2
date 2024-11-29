@@ -22,7 +22,7 @@ span:has(a.active){
   background: #000;
   color: white;
 }
-.hoverred::before {
+.hoveredElement::before {
   content: "";
   
   position: absolute;
@@ -32,13 +32,15 @@ span:has(a.active){
   height: 20%;
   width: 100%;
 }
-.hoverred span::before {
+.hoveredElement span::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 0;
+  bottom: 0;
   background: #000;
   z-index: -1;
   width: 100%;
-  transition: ;
+  transform-origin: bottom top;
+  height: 0%;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }

@@ -17,7 +17,7 @@ function App() {
       )}
       <Routes>
         {window.localStorage.getItem("authToken") ? (
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/*" element={<Dashboard />} />
         ) : (
           <Route path="/" element={<LoginForm />} />
         )}

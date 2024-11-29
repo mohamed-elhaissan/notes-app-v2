@@ -79,23 +79,23 @@ const LinksItems = () => {
           Historique <IoIosArrowRoundForward />
         </NavLink>
       </motion.span>
-      <div className="mt-10 flex flex-col gap-1 relative hoverred mb-5">
+      <div className="mt-10 flex flex-col gap-1 relative hoveredElement mb-5">
         {
           classMates?.map((item,index)=>(
-            <span key={index} className="relative hover:text-white hover:before:h-[100%] rounded-md py-1 mb-1  gap-2 cursor-pointer  border px-2 flex items-center ">
+            <span key={index} className="relative text-sm hover:text-white overflow-hidden hover:before:h-[100%] rounded-md py-1 mb-1  gap-2 cursor-pointer  border px-2 flex items-center ">
               <GoPerson/>
              <p> { item.last_name.toLowerCase()}</p>
             </span>
           ))
         }
       </div>
-      <motion.NavLink
+      <NavLink
         whileTap={{ scale: 0.99 }}
-        to="tewst"
-        className="px-2  rounded-md py-2  gap-2 cursor-pointer text-center border"
+        to="/users"
+        className="px-2 hover:font-bold transition-all duration-100 ease-in-out  rounded-md py-2  gap-2 cursor-pointer text-center border"
       >
         show more
-      </motion.NavLink>
+      </NavLink>
     </div>
   );
 };

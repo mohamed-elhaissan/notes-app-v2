@@ -113,7 +113,7 @@ const LoginForm = () => {
           whileTap={{ scale: 0.9 }}
       
           
-          className="hoveredElement border bg-black shadow-custom-shadow rounded-md  py-3 mb-4 text-center text-white text-sm font-semibold ">
+          className="border bg-black shadow-custom-shadow rounded-md  py-3 mb-4 text-center text-white text-sm font-semibold ">
             Login
           </motion.button>
         </form>

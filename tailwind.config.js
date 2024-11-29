@@ -11,7 +11,8 @@ export default {
       },
       backgroundColor :{
         'primary' : "#5f14e0"
-      }
+      },
+      
     },
   },
   plugins: [],
