@@ -16,11 +16,10 @@ function App() {
         </div>
       )}
       <Routes>
-        {window.localStorage.getItem("authToken") ? (
-          <Route path="/*" element={<Dashboard />} />
-        ) : (
-          <Route path="/" element={<LoginForm />} />
-        )}
+        <Route path="/*" element={<Dashboard />} />
+
+        <Route path="/" element={<LoginForm />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
