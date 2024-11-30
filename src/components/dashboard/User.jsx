@@ -79,10 +79,15 @@ const UserOption = () => {
             delay: 0.1,
             ease: "easeInOut",
           }}
-          className="w-full flex items-center justify-start gap-2 hover:bg-[#dedde2] cursor-pointer py-2 px-1 rounded-lg"
-        >
-          <CiSettings className="text-2xl" />
-          <NavLink to={"/settings"}>Settings</NavLink>
+          className="w-full"
+          >
+          <NavLink
+            to={"/settings"}
+            className="w-full flex items-center justify-start gap-2 hover:bg-[#dedde2] cursor-pointer py-2 px-1 rounded-lg"
+          >
+            <CiSettings className="text-2xl" />
+            Settings
+          </NavLink>
         </motion.button>
         <motion.button
           whileTap={{ scale: 0.8 }}

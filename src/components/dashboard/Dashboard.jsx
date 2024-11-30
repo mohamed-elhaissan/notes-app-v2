@@ -12,6 +12,7 @@ const Dashboard = () => {
     <div className="flex">
       <LeftSideContent />
       <Routes>
+        
         <Route path="/users" element={<AllUsers />} />
         <Route path="/settings" element={<Settings />} />
       </Routes>
