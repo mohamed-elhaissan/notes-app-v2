@@ -17,9 +17,7 @@ function App() {
       )}
       <Routes>
         <Route path="/*" element={<Dashboard />} />
-
         <Route path="/" element={<LoginForm />} />
-
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

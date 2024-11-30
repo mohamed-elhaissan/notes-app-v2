@@ -1,42 +1,80 @@
 import user from "../../assets/avatar.svg";
 import { CiSettings } from "react-icons/ci";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { useState } from "react";
+import { IoCloseOutline } from "react-icons/io5";
+import { motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
 export default function User() {
-  const [showOptios, setShowOptions] = useState(true);
+  const [showOptios, setShowOptions] = useState(false);
   return (
     <div className="px-4  relative flex justify-between  text-sm items-center gap-4">
       <img src={user} className="w-10 h-10 " alt="user profille here " />
-      {showOptios && <UserOption />}
-      <HiOutlineDotsVertical
-        onClick={() => {
-          setShowOptions(!showOptios);
-        }}
-        className="text-3xl hover:bg-[#f3f3f3] rounded-full p-1 cursor-pointer"
-      />
+      <AnimatePresence>{showOptios && <UserOption />}</AnimatePresence>
+      {showOptios ? (
+        <IoCloseOutline
+          onClick={() => {
+            setShowOptions(!showOptios);
+          }}
+          className="text-3xl hover:bg-[#f3f3f3] rounded-full p-1 cursor-pointer"
+        />
+      ) : (
+        <HiOutlineDotsVertical
+          onClick={() => {
+            setShowOptions(!showOptios);
+          }}
+          className="text-3xl hover:bg-[#f3f3f3] rounded-full p-1 cursor-pointer"
+        />
+      )}
     </div>
   );
 }
 
 const UserOption = () => {
+  const Navigate = useNavigate();
+  const logOut = () => {
+    window.localStorage.removeItem("authToken");
+    Navigate("/");
+  };
   return (
     <>
-      <div className="absolute -right-20 w-[120%] flex flex-col p-4 rounded-lg items-start justify-center gap-2   bg-white shadow-xl shadow-neutral-900/30 -top-50">
-        <div className="w-full flex items-center justify-start hover:bg-[#8a8495] py-2 px-1 rounded-lg">
-            <CiSettings className="text-2xl"/>
-            <NavLink to={"/settings"}>
-            Settings
-            </NavLink>
-        </div>
-        <div className="w-full flex items-center justify-start hover:bg-[#8a8495] py-2 px-1 rounded-lg">
-            <IoIosLogOut className="text-2xl"/>
-            <NavLink to={"/settings"}>
-            Log out
-            </NavLink>
-        </div>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 20 }}
+        transition={{ type: "spring", stiffness: 100, damping: 15 }}
+        className="absolute -right-20 w-[120%] flex flex-col p-4 rounded-lg items-start justify-center gap-2  bg-white shadow-xl shadow-neutral-900/30 -top-32"
+      >
+        <motion.button
+          whileTap={{ scale: 0.9 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 0.1,
+            ease: "easeInOut",
+          }}
+          className="w-full flex items-center justify-start gap-2 hover:bg-[#dedde2] cursor-pointer py-2 px-1 rounded-lg"
+        >
+          <CiSettings className="text-2xl" />
+          <NavLink to={"/settings"}>Settings</NavLink>
+        </motion.button>
+        <motion.button
+          whileTap={{ scale: 0.9 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 0.1,
+            ease: "easeInOut",
+          }}
+          onClick={logOut}
+          className="w-full flex items-center gap-2 justify-start hover:bg-[#dedde2] cursor-pointer py-2 px-1 rounded-lg"
+        >
+          <IoIosLogOut className="text-2xl" />
+          <p>LogOut</p>
+        </motion.button>
+      </motion.div>
     </>
   );
 };
