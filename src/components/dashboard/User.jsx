@@ -14,19 +14,43 @@ export default function User() {
       <img src={user} className="w-10 h-10 " alt="user profille here " />
       <AnimatePresence>{showOptios && <UserOption />}</AnimatePresence>
       {showOptios ? (
-        <IoCloseOutline
+        <motion.button
+          key="close"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0, opacity: 0 }}
+          transition={{
+            type: "spring",
+            stiffness: 100,
+            damping: 15,
+            duration: 0.1,
+          }}
           onClick={() => {
             setShowOptions(!showOptios);
           }}
-          className="text-3xl hover:bg-[#f3f3f3] rounded-full p-1 cursor-pointer"
-        />
+          className="text-2xl hover:bg-[#f3f3f3] rounded-full p-1 cursor-pointer"
+        >
+          <IoCloseOutline />
+        </motion.button>
       ) : (
-        <HiOutlineDotsVertical
+        <motion.button
+          key="dots"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0, opacity: 0 }}
+          transition={{
+            type: "spring",
+            stiffness: 100,
+            damping: 15,
+            duration: 0.1,
+          }}
           onClick={() => {
             setShowOptions(!showOptios);
           }}
-          className="text-3xl hover:bg-[#f3f3f3] rounded-full p-1 cursor-pointer"
-        />
+          className="text-2xl hover:bg-[#f3f3f3] rounded-full p-1 cursor-pointer"
+        >
+          <HiOutlineDotsVertical />
+        </motion.button>
       )}
     </div>
   );
@@ -48,7 +72,7 @@ const UserOption = () => {
         className="absolute -right-20 w-[120%] flex flex-col p-4 rounded-lg items-start justify-center gap-2  bg-white shadow-xl shadow-neutral-900/30 -top-32"
       >
         <motion.button
-          whileTap={{ scale: 0.9 }}
+          whileTap={{ scale: 0.8 }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -61,7 +85,7 @@ const UserOption = () => {
           <NavLink to={"/settings"}>Settings</NavLink>
         </motion.button>
         <motion.button
-          whileTap={{ scale: 0.9 }}
+          whileTap={{ scale: 0.8 }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
