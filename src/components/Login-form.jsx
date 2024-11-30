@@ -36,10 +36,14 @@ const LoginForm = () => {
           },
         });
 
-        if (response) {
+        if (response.status) {
+          console.log(response.status == 200);
+
+          console.log("this is data", response);
+          setErr({ isvisible: true, txt: response?.message });
           setUser({
-            firstName: response.data.user.first_name,
-            lastName: response.data.user.last_name,
+            firstName: response.data.user?.first_name,
+            lastName: response.data.user?.last_name,
           });
           window.localStorage.setItem("authToken", response.data.token);
           window.localStorage.setItem(
@@ -52,7 +56,7 @@ const LoginForm = () => {
         }
       } catch (error) {
         console.error(error);
-        
+
         setErr({ isvisible: true, txt: error.response?.data.message });
       } finally {
         setIsLoading(false);
@@ -104,7 +108,7 @@ const LoginForm = () => {
           <div className="flex flex-col">
             <label htmlFor="password">Password</label>
             <input
-              value={"1223456"}
+              value={"123456"}
               ref={passwordInputRef}
               type="Password"
               className="border outline-[#A1A1AA] py-1 px-4 rounded-sm"

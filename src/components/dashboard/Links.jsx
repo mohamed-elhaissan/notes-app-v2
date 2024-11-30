@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { FiPlus } from "react-icons/fi";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { motion } from "motion/react";
+import { request } from "../../utils/axiosUtilis";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { GoPerson } from "react-icons/go";
@@ -9,29 +10,24 @@ import { loading } from "../../context/LoadingContext";
 
 const LinksItems = () => {
   const [classMates, setClassMates] = useState();
-  const {setIsLoading} = useContext(loading);
+  const { setIsLoading } = useContext(loading);
 
   const fetchRandomUsers = async () => {
-    setIsLoading(true)
-    axios
-      .get("https://notes.devlop.tech/api/users", {
-        headers: {
-          Authorization: `Bearer ${window.localStorage.getItem("authToken")}`,
-        },
-      })
-      .then((response) => {
-        setClassMates([response.data[0],response.data[1],response.data[2],response.data[3],response.data[4]])
-      }).catch((err)=>{
-        console.log(err);
-        
-      })
-    };
-    useEffect(() => {
-      fetchRandomUsers();
+    setIsLoading(true);
+    const response = await request({ url: "/users" });
+    if (response.status == 200) {
+      setClassMates([...response.data])
+      console.log('those are class');
       console.log(classMates);
-      setIsLoading(false)
-    
-    
+      
+      
+      
+    }
+  };
+  useEffect(() => {
+    fetchRandomUsers();
+    console.log(classMates);
+    setIsLoading(false);
   }, []);
   return (
     <div className="flex mt-5 flex-col px-1 ">
@@ -80,14 +76,15 @@ const LinksItems = () => {
         </NavLink>
       </motion.span>
       <div className="mt-10 flex flex-col gap-1 relative hoveredElement mb-5">
-        {
-          classMates?.map((item,index)=>(
-            <span key={index} className="relative text-sm hover:text-white overflow-hidden hover:before:h-[100%] rounded-md py-1 mb-1  gap-2 cursor-pointer  border px-2 flex items-center ">
-              <GoPerson/>
-             <p> { item.last_name.toLowerCase()}</p>
-            </span>
-          ))
-        }
+        {classMates?.map((item, index) => (
+          <span
+            key={index}
+            className="relative text-sm hover:text-white overflow-hidden hover:before:h-[100%] rounded-md py-1 mb-1  gap-2 cursor-pointer  border px-2 flex items-center "
+          >
+            <GoPerson />
+            <p> {item.last_name.toLowerCase()}</p>
+          </span>
+        ))}
       </div>
       <NavLink
         whileTap={{ scale: 0.99 }}
