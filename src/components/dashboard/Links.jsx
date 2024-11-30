@@ -82,7 +82,7 @@ const LinksItems = () => {
         ))}
       </div>
       <NavLink
-        whileTap={{ scale: 0.99 }}
+        
         to="/users"
         className="px-2 hover:font-bold transition-all duration-100 ease-in-out  rounded-md py-2  gap-2 cursor-pointer text-center border"
       >

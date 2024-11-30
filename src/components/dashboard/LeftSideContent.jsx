@@ -1,3 +1,5 @@
+
+import User from "./User.jsx";
 import LinksItems from "./Links";
 export default function LeftSideContent() {
   return (
@@ -9,8 +11,8 @@ export default function LeftSideContent() {
         <hr />
         <LinksItems />
       </div>
-
-      <div>user here</div>
+    <User/>
+      
     </div>
   );
 }
