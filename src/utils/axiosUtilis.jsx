@@ -11,7 +11,7 @@ export const request = ({...paramtres})=>{
         }else {
             return err
         }
-        return err
+        return `this      ${err} `
 
     } 
     return client(paramtres).then(success).catch(onErr)

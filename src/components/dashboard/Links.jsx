@@ -1,32 +1,27 @@
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import { FiPlus } from "react-icons/fi";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { motion } from "motion/react";
 import { request } from "../../utils/axiosUtilis";
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { GoPerson } from "react-icons/go";
 import { loading } from "../../context/LoadingContext";
 
 const LinksItems = () => {
-  const [classMates, setClassMates] = useState();
+  const [classMates, setClassMates] = useState([]);
   const { setIsLoading } = useContext(loading);
 
   const fetchRandomUsers = async () => {
     setIsLoading(true);
-    const response = await request({ url: "/users" });
-    if (response.status == 200) {
-      setClassMates([...response.data])
-      console.log('those are class');
-      console.log(classMates);
-      
-      
-      
-    }
+    await request({ url: "/users" })
+      .then((response) => {
+        setClassMates([...response.data]);
+      })
+      .catch((err) => {err.status == 401 ? Navigate('/') : err});
   };
   useEffect(() => {
     fetchRandomUsers();
-    console.log(classMates);
+    // console.log(classMates);
     setIsLoading(false);
   }, []);
   return (
@@ -76,7 +71,7 @@ const LinksItems = () => {
         </NavLink>
       </motion.span>
       <div className="mt-10 flex flex-col gap-1 relative hoveredElement mb-5">
-        {classMates?.map((item, index) => (
+        {classMates?.slice(0, 5).map((item, index) => (
           <span
             key={index}
             className="relative text-sm hover:text-white overflow-hidden hover:before:h-[100%] rounded-md py-1 mb-1  gap-2 cursor-pointer  border px-2 flex items-center "
