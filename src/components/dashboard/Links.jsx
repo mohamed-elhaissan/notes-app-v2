@@ -17,11 +17,12 @@ const LinksItems = () => {
       .then((response) => {
         setClassMates([...response.data]);
       })
-      .catch((err) => {err.status == 401 ? Navigate('/') : err});
+      .catch((err) => {
+        err.status == 401 ? Navigate("/") : err;
+      });
   };
   useEffect(() => {
     fetchRandomUsers();
-    // console.log(classMates);
     setIsLoading(false);
   }, []);
   return (
@@ -82,7 +83,6 @@ const LinksItems = () => {
         ))}
       </div>
       <NavLink
-        
         to="/users"
         className="px-2 hover:font-bold transition-all duration-100 ease-in-out  rounded-md py-2  gap-2 cursor-pointer text-center border"
       >
