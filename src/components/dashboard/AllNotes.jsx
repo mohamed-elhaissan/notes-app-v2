@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import { request } from "../../utils/axiosUtilis";
-
+import { motion } from "motion/react";
 export default function AllNotes() {
   const [notes, setNotes] = useState([]);
   const fetchAllNotes = async () => {
     await request({ url: "/notes" })
       .then(({ data }) => {
         setNotes([...data]);
-        console.log(data);
-
-        console.log(notes);
       })
       .catch((err) => {
         console.log(err);
@@ -23,7 +20,17 @@ export default function AllNotes() {
       <div className="p-5 w-[80%] mx-auto">
         <table border={1} className="w-full  ">
           <thead className="bg-gray-50 border-b-2 border-gray-200  text-[#95A4B9] first-letter:uppercase rounded-lg">
-            <tr>
+            <motion.tr
+              initial={{ y: -10,  opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                
+                type: "spring",
+                stiffness: 200,
+                damping: 15,
+                duration: 0.1,
+              }}
+            >
               <th className=" p-3 text-sm font-semibold tracking-wide text-left">
                 Note
               </th>
@@ -36,11 +43,20 @@ export default function AllNotes() {
               <th className="w-24 p-3 text-sm font-semibold tracking-wide text-left">
                 Owner
               </th>
-            </tr>
+            </motion.tr>
           </thead>
           <tbody>
             {notes?.map((item, index) => (
-              <tr
+              <motion.tr
+                initial={{ y: -10, scale: 0.9, opacity: 0 }}
+                animate={{ y: 0, scale: 1, opacity: 1 }}
+                transition={{
+                  delay: 0.1 * index,
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 15,
+                  duration: 0.1,
+                }}
                 key={index}
                 className={index % 2 == 0 ? "bg-white" : "bg-slate-100"}
               >
@@ -65,7 +81,7 @@ export default function AllNotes() {
                       : item.shared_with[0]?.last_name.toLowerCase()}
                   </span>
                 </td>
-              </tr>
+              </motion.tr>
             ))}
           </tbody>
         </table>

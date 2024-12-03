@@ -1,11 +1,12 @@
 import { Navigate, NavLink } from "react-router-dom";
-import { FiPlus } from "react-icons/fi";
+
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { motion } from "motion/react";
 import { request } from "../../utils/axiosUtilis";
 import { useContext, useEffect, useState } from "react";
 import { GoPerson } from "react-icons/go";
 import { loading } from "../../context/LoadingContext";
+import AddNote from "./AdddNotes";
 
 const LinksItems = () => {
   const [classMates, setClassMates] = useState([]);
@@ -27,14 +28,7 @@ const LinksItems = () => {
   }, []);
   return (
     <div className="flex mt-5 flex-col px-1 ">
-      <motion.span
-        whileTap={{ scale: 0.9 }}
-        whileHover={{ scale: 1.02 }}
-        className="bg-black text-sm px-2  rounded-md py-2 mb-5 text-white flex items-center gap-1 shadow-custom-shadow cursor-pointer"
-      >
-        <FiPlus />
-        New Notes
-      </motion.span>
+      <AddNote />
       <motion.span
         whileTap={{ scale: 0.9 }}
         className="rounded-md py-1 mb-1  gap-2 cursor-pointer  border px-2"
@@ -73,13 +67,22 @@ const LinksItems = () => {
       </motion.span>
       <div className="mt-10 flex flex-col gap-1 relative hoveredElement mb-5">
         {classMates?.slice(0, 5).map((item, index) => (
-          <span
+          <motion.span
+            initial={{ y: -10, opacity: 0,scale  : 0 }}
+            animate={{ y: 0, opacity: 1,scale  : 1 }}
+            transition={{
+              delay: 0.1 * index,
+              type: "spring",
+              stiffness: 200,
+              damping: 15,
+              duration: 0.1,
+            }}
             key={index}
             className="relative text-sm hover:text-white overflow-hidden hover:before:h-[100%] rounded-md py-1 mb-1  gap-2 cursor-pointer  border px-2 flex items-center "
           >
             <GoPerson />
             <p> {item.last_name.toLowerCase()}</p>
-          </span>
+          </motion.span>
         ))}
       </div>
       <NavLink
