@@ -21,10 +21,9 @@ export default function AllNotes() {
         <table border={1} className="w-full  ">
           <thead className="bg-gray-50 border-b-2 border-gray-200  text-[#95A4B9] first-letter:uppercase rounded-lg">
             <motion.tr
-              initial={{ y: -10,  opacity: 0 }}
+              initial={{ y: -10, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{
-                
                 type: "spring",
                 stiffness: 200,
                 damping: 15,

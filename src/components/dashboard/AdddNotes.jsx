@@ -1,11 +1,14 @@
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { request } from "../../utils/axiosUtilis";
 import { FiPlus } from "react-icons/fi";
 import makeAnimated from "react-select/animated";
 import Select from "react-select";
+import { request } from "../../utils/axiosUtilis";
+import { AnimatePresence } from "motion/react";
+import { toast, ToastContainer } from "react-toastify";
 const AddNote = () => {
-  const [showAddNote, setShowAddNote] = useState(true);
+  const [showAddNote, setShowAddNote] = useState(false);
+  const [selectedUser, setSelectedUser] = useState([]);
   const [options, setOptions] = useState([]);
   const titleInputRef = useRef();
   const contentInputRef = useRef();
@@ -25,11 +28,36 @@ const AddNote = () => {
       });
     });
   };
-
+  const handleChanges = (selected) => {
+    selected.forEach((item) => {
+      setSelectedUser([...selectedUser, item.value]);
+    });
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (condition) {
-      
+    if (
+      titleInputRef.current.value == "" ||
+      contentInputRef.current.value == "" ||
+      selectedUser.length == 0
+    ) {
+      toast.error("something u didnt completed");
+    } else {
+      const response = request({
+        url: "/notes",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: {
+          title: titleInputRef.current.value,
+          content: contentInputRef.current.value,
+          shared_with: selectedUser,
+        },
+      });
+      if (response.status == 201) {
+        toast.success("The Notes Has Been Created Successfuly");
+        setShowAddNote(false);
+      }
     }
   };
   useEffect(() => {
@@ -38,6 +66,7 @@ const AddNote = () => {
 
   return (
     <>
+      <ToastContainer />
       <motion.button
         onClick={() => setShowAddNote(!showAddNote)}
         whileTap={{ scale: 0.9 }}
@@ -49,47 +78,59 @@ const AddNote = () => {
       </motion.button>
       {showAddNote && (
         <motion.div className="fixed z-20 flex items-center justify-center bg-slate-900/20 backdrop-blur w-full h-full left-0 top-0 ">
-          <form
-            className="bg-white flex flex-col p-4 w-[30%] rounded"
-            onSubmit={handleSubmit}
-          >
-            <label htmlFor="title" className="font-semibold tracking-tighter">
-              Title
-            </label>
-            <input
-            ref={}
-              type="text"
-              placeholder="note Title.."
-              className="outline-none border-2 px-2 py-2 rounded mb-2 text-sm "
-            />
-            <label htmlFor="title" className="font-semibold tracking-tighter">
-              Content
-            </label>
-            <textarea
-              ref={contentInputRef}
-              rows={2}
-              placeholder="contnent here "
-              className="outline-none border-2 px-2 py-2 rounded mb-2 text-sm "
-            ></textarea>
-            <div>
-              <p className="font-semibold">Shared With</p>
-              <Select
-                options={options}
-                closeMenuOnSelect={false}
-                components={makeAnimated()}
-                isMulti
-              />
-            </div>
-            <button className="bg-black text-white text-sm rounded py-3 px-2 mt-2">
-              Add Note
-            </button>
-            <button
-              className="border-2 text-sm rounded py-2 px-2 mt-2"
-              onClick={() => setShowAddNote(false)}
+          <AnimatePresence>
+            <motion.form
+              initial={{ y: -10, scale: 0, opacity: 0 }}
+              animate={{ y: 0, scale: 1, opacity: 1 }}
+              exit={{ y: -10, scale: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 15,
+                duration: 0.1,
+              }}
+              className="bg-white flex flex-col p-4 w-[30%] rounded"
+              onSubmit={handleSubmit}
             >
-              Cancel
-            </button>
-          </form>
+              <label htmlFor="title" className="font-semibold tracking-tighter">
+                Title
+              </label>
+              <input
+                ref={titleInputRef}
+                type="text"
+                placeholder="note Title.."
+                className="outline-none border-2 px-2 py-2 rounded mb-2 text-sm "
+              />
+              <label htmlFor="title" className="font-semibold tracking-tighter">
+                Content
+              </label>
+              <textarea
+                ref={contentInputRef}
+                rows={2}
+                placeholder="contnent here "
+                className="outline-none border-2 px-2 py-2 rounded mb-2 text-sm "
+              ></textarea>
+              <div>
+                <p className="font-semibold">Shared With</p>
+                <Select
+                  options={options}
+                  closeMenuOnSelect={false}
+                  components={makeAnimated()}
+                  onChange={handleChanges}
+                  isMulti
+                />
+              </div>
+              <button className="bg-black text-white text-sm rounded py-3 px-2 mt-2">
+                Add Note
+              </button>
+              <button
+                className="border-2 text-sm rounded py-2 px-2 mt-2"
+                onClick={() => setShowAddNote(false)}
+              >
+                Cancel
+              </button>
+            </motion.form>
+          </AnimatePresence>
         </motion.div>
       )}
     </>
