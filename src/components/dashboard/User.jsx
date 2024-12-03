@@ -9,6 +9,8 @@ import { motion } from "motion/react";
 import { AnimatePresence } from "motion/react";
 export default function User() {
   const [showOptios, setShowOptions] = useState(false);
+  
+
   return (
     <div className="px-4  relative flex justify-between  text-sm items-center gap-4">
       <img src={user} className="w-10 h-10 " alt="user profille here " />
@@ -62,6 +64,7 @@ const UserOption = () => {
     window.localStorage.removeItem("authToken");
     Navigate("/");
   };
+  
   return (
     <>
       <motion.div
