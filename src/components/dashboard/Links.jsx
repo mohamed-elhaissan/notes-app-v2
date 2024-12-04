@@ -1,4 +1,4 @@
-import { Navigate, NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { motion } from "motion/react";
@@ -9,6 +9,7 @@ import { loading } from "../../context/LoadingContext";
 import AddNote from "./AdddNotes";
 
 const LinksItems = () => {
+  const navigate = useNavigate();
   const [classMates, setClassMates] = useState([]);
   const { setIsLoading } = useContext(loading);
 
@@ -19,7 +20,7 @@ const LinksItems = () => {
         setClassMates([...response.data]);
       })
       .catch((err) => {
-        err.status == 401 ? Navigate("/") : err;
+        err.status == 401 ? navigate("/") : err;
       });
   };
   useEffect(() => {
@@ -53,23 +54,12 @@ const LinksItems = () => {
           People <IoIosArrowRoundForward />
         </NavLink>
       </motion.span>
-      <motion.span
-        whileTap={{ scale: 0.9 }}
-        className="rounded-md py-1 mb-1  gap-2 cursor-pointer  border px-2"
-        whileHover={{ background: "black", color: "white" }}
-        transition={{
-          ease: "easeInOut",
-        }}
-      >
-        <NavLink className="flex items-center justify-between" to="/class">
-          Historique <IoIosArrowRoundForward />
-        </NavLink>
-      </motion.span>
+
       <div className="mt-10 flex flex-col gap-1 relative hoveredElement mb-5">
         {classMates?.slice(0, 5).map((item, index) => (
           <motion.span
-            initial={{ y: -10, opacity: 0,scale  : 0 }}
-            animate={{ y: 0, opacity: 1,scale  : 1 }}
+            initial={{ y: -10, opacity: 0, scale: 0 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
             transition={{
               delay: 0.1 * index,
               type: "spring",

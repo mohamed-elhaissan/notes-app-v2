@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import { request } from "../../utils/axiosUtilis";
 import { motion } from "motion/react";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { MdOutlineEditNote } from "react-icons/md";
+import DeleteItems from "./DeleteItems";
+
 export default function AllNotes() {
   const [notes, setNotes] = useState([]);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const fetchAllNotes = async () => {
     await request({ url: "/notes" })
       .then(({ data }) => {
@@ -12,11 +17,18 @@ export default function AllNotes() {
         console.log(err);
       });
   };
+  const handleDelete = () => {
+    console.log("confimdelte");
+  };
   useEffect(() => {
     fetchAllNotes();
   });
   return (
     <>
+      <DeleteItems
+        open={confirmDelete.isVisible}
+        onCancel={setConfirmDelete(false)}
+      />
       <div className="p-5 w-[80%] mx-auto">
         <table border={1} className="w-full  ">
           <thead className="bg-gray-50 border-b-2 border-gray-200  text-[#95A4B9] first-letter:uppercase rounded-lg">
@@ -41,6 +53,9 @@ export default function AllNotes() {
               </th>
               <th className="w-24 p-3 text-sm font-semibold tracking-wide text-left">
                 Owner
+              </th>
+              <th className="w-24 p-3 text-sm font-semibold tracking-wide text-left">
+                Actions
               </th>
             </motion.tr>
           </thead>
@@ -78,6 +93,19 @@ export default function AllNotes() {
                     {item.is_owner
                       ? "you"
                       : item.shared_with[0]?.last_name.toLowerCase()}
+                  </span>
+                </td>
+                <td className="p-3 text-sm font-bold  text-blue-500 ">
+                  <span className=" cursor-pointer flex text-xl gap-2">
+                    <RiDeleteBin6Line
+                      className=" text-red-500"
+                      onClick={() => {
+                        confirmDelete
+                          ? setConfirmDelete(false)
+                          : setConfirmDelete({ isVisible: true, id: item.id });
+                      }}
+                    />
+                    <MdOutlineEditNote />
                   </span>
                 </td>
               </motion.tr>
