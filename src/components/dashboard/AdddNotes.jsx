@@ -9,6 +9,7 @@ import { toast, ToastContainer } from "react-toastify";
 const AddNote = () => {
   const [showAddNote, setShowAddNote] = useState(false);
   const [selectedUser, setSelectedUser] = useState([]);
+  
   const [options, setOptions] = useState([]);
   const titleInputRef = useRef();
   const contentInputRef = useRef();
@@ -126,15 +127,19 @@ const AddNote = () => {
                   isMulti
                 />
               </div>
-              <button className="bg-black text-white text-sm rounded py-3 px-2 mt-2">
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                className="bg-black text-white text-sm rounded py-3 px-2 mt-2"
+              >
                 Add Note
-              </button>
-              <button
+              </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.9 }}
                 className="border-2 text-sm rounded py-2 px-2 mt-2"
                 onClick={() => setShowAddNote(false)}
               >
                 Cancel
-              </button>
+              </motion.button>
             </motion.form>
           </AnimatePresence>
         </motion.div>

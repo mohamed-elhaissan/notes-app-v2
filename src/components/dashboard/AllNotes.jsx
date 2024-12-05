@@ -4,10 +4,13 @@ import { motion } from "motion/react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdOutlineEditNote } from "react-icons/md";
 import DeleteItems from "./DeleteItems";
+import UpdateNote from "./UpdateNote";
 
 export default function AllNotes() {
   const [notes, setNotes] = useState([]);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [updateItem, setUpdateItem] = useState(false);
+  const [showUpdateDiv, setShowUpdateDiv] = useState(false);
   const fetchAllNotes = async () => {
     await request({ url: "/notes" })
       .then(({ data }) => {
@@ -28,6 +31,12 @@ export default function AllNotes() {
         open={confirmDelete.isVisible}
         onCancel={setConfirmDelete}
       />
+      {showUpdateDiv && (
+        <UpdateNote
+          id={updateItem.id}
+          Oncancel={setShowUpdateDiv}
+        />
+      )}
       <div className="p-5 w-[80%] mx-auto">
         <h1 className="text-2xl mb-8">
           <span className="text-xl text-indigo-300">Hey</span>,{" "}
@@ -109,7 +118,14 @@ export default function AllNotes() {
                           : setConfirmDelete({ isVisible: true, id: item.id });
                       }}
                     />
-                    <MdOutlineEditNote />
+                    {item.is_owner && (
+                      <MdOutlineEditNote
+                        onClick={() => {
+                         setShowUpdateDiv(true);
+                         setUpdateItem({id : item.id})
+                        }}
+                      />
+                    )}
                   </span>
                 </td>
               </motion.tr>

@@ -50,7 +50,7 @@ const LinksItems = () => {
           ease: "easeInOut",
         }}
       >
-        <NavLink className="flex items-center justify-between  " to="/class">
+        <NavLink className="flex items-center justify-between  " to="/users">
           People <IoIosArrowRoundForward />
         </NavLink>
       </motion.span>

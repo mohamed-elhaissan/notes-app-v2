@@ -99,7 +99,6 @@ const LoginForm = () => {
           <div className="flex flex-col">
             <label htmlFor="cin">cin</label>
             <input
-              value={"JT113187"}
               ref={cinInputRef}
               type="text"
               className="border outline-[#A1A1AA] py-1 px-4 rounded-sm"
@@ -108,7 +107,6 @@ const LoginForm = () => {
           <div className="flex flex-col">
             <label htmlFor="password">Password</label>
             <input
-              value={"123456"}
               ref={passwordInputRef}
               type="Password"
               className="border outline-[#A1A1AA] py-1 px-4 rounded-sm"
