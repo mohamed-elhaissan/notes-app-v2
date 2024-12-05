@@ -1,9 +1,26 @@
 /* eslint-disable react/prop-types */
 import { MdDelete } from "react-icons/md";
 import { motion } from "motion/react";
+import { request } from "../../utils/axiosUtilis";
+import { ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 const DeleteItems = ({ open, id, onCancel }) => {
+  const handleDelete = async () => {
+    request({
+      url: `/notes/${id}`,
+      method: "DELETE",
+    })
+      .then(({ data }) => {
+        toast.success(data.message);
+        onCancel(false)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
+      <ToastContainer />
       {open && (
         <motion.div className="fixed z-20 flex items-center justify-center bg-slate-900/20 backdrop-blur w-full h-full left-0 top-0 ">
           <motion.div
@@ -23,10 +40,18 @@ const DeleteItems = ({ open, id, onCancel }) => {
               Are you Sure You wanna Delete This Item
             </p>
             <div className="flex gap-2">
-              <button className="border-2 py-2 px-4 rounded" onClick={onCancel}>
+              <button
+                className="border-2 py-2 px-4 rounded"
+                onClick={() => {
+                  onCancel(false);
+                }}
+              >
                 No,cancel
               </button>
-              <button className="border-2 bg-red-600 font-semibold text-white py-2 px-8 rounded">
+              <button
+                className="border-2 bg-red-600 font-semibold text-white py-2 px-8 rounded"
+                onClick={handleDelete}
+              >
                 Delete
               </button>
             </div>

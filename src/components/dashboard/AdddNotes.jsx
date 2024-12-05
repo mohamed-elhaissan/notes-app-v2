@@ -33,33 +33,39 @@ const AddNote = () => {
       setSelectedUser([...selectedUser, item.value]);
     });
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (
-      titleInputRef.current.value == "" ||
-      contentInputRef.current.value == "" ||
-      selectedUser.length == 0
+      titleInputRef.current.value === "" ||
+      contentInputRef.current.value === "" ||
+      selectedUser.length === 0
     ) {
-      toast.error("something u didnt completed");
+      toast.error("Please complete all fields.");
     } else {
-      const response = request({
-        url: "/notes",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: {
-          title: titleInputRef.current.value,
-          content: contentInputRef.current.value,
-          shared_with: selectedUser,
-        },
-      });
-      if (response.status == 201) {
-        toast.success("The Notes Has Been Created Successfuly");
-        setShowAddNote(false);
+      try {
+        const response = await request({
+          url: "/notes",
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: {
+            title: titleInputRef.current.value,
+            content: contentInputRef.current.value,
+            shared_with: selectedUser,
+          },
+        });
+        if (response.status === 201) {
+          setShowAddNote(false);
+          toast.success("Note added successfully!");
+        }
+      } catch (error) {
+        toast.error("Failed to add note. Please try again.");
+        console.error("Error:", error);
       }
     }
   };
+
   useEffect(() => {
     getAllUser();
   }, []);

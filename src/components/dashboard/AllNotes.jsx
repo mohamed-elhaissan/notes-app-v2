@@ -17,19 +17,22 @@ export default function AllNotes() {
         console.log(err);
       });
   };
-  const handleDelete = () => {
-    console.log("confimdelte");
-  };
+
   useEffect(() => {
     fetchAllNotes();
   });
   return (
     <>
       <DeleteItems
+        id={confirmDelete.id}
         open={confirmDelete.isVisible}
-        onCancel={setConfirmDelete(false)}
+        onCancel={setConfirmDelete}
       />
       <div className="p-5 w-[80%] mx-auto">
+        <h1 className="text-2xl mb-8">
+          <span className="text-xl text-indigo-300">Hey</span>,{" "}
+          {localStorage.getItem("userInfo").toLowerCase()}
+        </h1>
         <table border={1} className="w-full  ">
           <thead className="bg-gray-50 border-b-2 border-gray-200  text-[#95A4B9] first-letter:uppercase rounded-lg">
             <motion.tr
@@ -93,6 +96,7 @@ export default function AllNotes() {
                     {item.is_owner
                       ? "you"
                       : item.shared_with[0]?.last_name.toLowerCase()}
+                    <sup>({item.shared_with[0]?.last_name})</sup>
                   </span>
                 </td>
                 <td className="p-3 text-sm font-bold  text-blue-500 ">
