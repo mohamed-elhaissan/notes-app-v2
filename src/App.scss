@@ -5,18 +5,29 @@
   margin: 0;
 }
 
-
-
 @font-face {
-  font-family: 'customFont';
-  src: url('./font/customFont.ttf') format('truetype');
+  font-family: "customFont";
+  src: url("./font/ROUND8-FOUR.otf") format("truetype");
 }
 
 body {
   background-color: #f3f3f3;
 }
-.loading  {
-  
+.loading span {
+  animation: blurLoading 2s ease infinite ;
+}
+@keyframes blurLoading {
+  0% {
+    filter: blur(0px);
+    letter-spacing: 0px;
+  }
+  50% {
+    filter: blur(10px);
+    letter-spacing: 10px;
+  }100% {
+    letter-spacing: 0px;
+    filter: blur(0px);
+  }
 }
 
 span:has(a.active) {
