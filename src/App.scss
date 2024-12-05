@@ -5,20 +5,20 @@
   margin: 0;
 }
 
+
+
+@font-face {
+  font-family: 'customFont';
+  src: url('./font/customFont.ttf') format('truetype');
+}
+
 body {
   background-color: #f3f3f3;
 }
-.loading div {
-  animation: loadingAnimation 1s ease-in-out infinite;
+.loading  {
+  
 }
-@keyframes loadingAnimation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+
 span:has(a.active) {
   background: #000;
   color: white;

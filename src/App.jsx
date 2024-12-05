@@ -12,7 +12,7 @@ function App() {
     <>
       {isLoading && (
         <div className="loading flex items-center justify-center bg-slate-200 fixed left-0 top-0  z-20 h-full w-full">
-          <div className="w-10 h-10 rounded-full border-t-4 border-black"></div>
+          <span className="text-8xl font-custom-Font">LOADING</span>
         </div>
       )}
       <Routes>
