@@ -84,7 +84,7 @@ const AddNote = () => {
         New Notes
       </motion.button>
       {showAddNote && (
-        <motion.div className="fixed z-20 flex items-center justify-center bg-slate-900/20 backdrop-blur w-full h-full left-0 top-0 ">
+        <motion.div className="fixed z-40 flex items-center justify-center bg-slate-900/20 backdrop-blur w-full h-full left-0 top-0 ">
           <AnimatePresence>
             <motion.form
               initial={{ y: -10, scale: 0, opacity: 0 }}
@@ -135,7 +135,7 @@ const AddNote = () => {
               </motion.button>
               <motion.button
                 whileTap={{ scale: 0.9 }}
-                className="border-2 text-sm rounded py-2 px-2 mt-2"
+                className="border-2 text-sm rounded py-2 px-2 mt-2 dark:text-black text-black"
                 onClick={() => setShowAddNote(false)}
               >
                 Cancel

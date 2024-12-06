@@ -38,7 +38,7 @@ const LinksItems = () => {
           ease: "easeInOut",
         }}
       >
-        <NavLink className="flex items-center justify-between" to="/dashboard">
+        <NavLink className="flex items-center justify-between dark:text-[#404040]" to="/dashboard">
           Notes <IoIosArrowRoundForward />
         </NavLink>
       </motion.span>
@@ -50,7 +50,7 @@ const LinksItems = () => {
           ease: "easeInOut",
         }}
       >
-        <NavLink className="flex items-center justify-between  " to="/users">
+        <NavLink className="flex items-center justify-between   " to="/users">
           People <IoIosArrowRoundForward />
         </NavLink>
       </motion.span>
@@ -68,7 +68,7 @@ const LinksItems = () => {
               duration: 0.1,
             }}
             key={index}
-            className="relative text-sm hover:text-white overflow-hidden hover:before:h-[100%] rounded-md py-1 mb-1  gap-2 cursor-pointer  border px-2 flex items-center "
+            className="relative text-sm hover:text-white overflow-hidden dark:border-[#404040] hover:before:h-[100%] rounded-md py-1 mb-1  gap-2 cursor-pointer  border px-2 flex items-center "
           >
             <GoPerson />
             <p> {item.last_name.toLowerCase()}</p>

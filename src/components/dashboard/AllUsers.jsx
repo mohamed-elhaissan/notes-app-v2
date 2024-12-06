@@ -57,7 +57,7 @@ const AllUsers = () => {
                 duration: 0.1,
               }}
               key={index}
-              className={index % 2 == 0 ? "bg-white" : "bg-slate-100"}
+              className={index % 2 == 0 ? "bg-white dark:bg-[#d9d8da] border mb-1" : "bg-slate-100 dark:bg-[#d9d8da] "}
             >
               <td className="p-3 text-sm text-gray-700 first-letter:uppercase">
                 {item.first_name.toLowerCase()}

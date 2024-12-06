@@ -83,7 +83,7 @@ const LoginForm = () => {
           stiffness: 100,
           damping: 10,
         }}
-        className="bg-white p-4 rounded-lg w-[30%]"
+        className="bg-white dark:bg-[#1a1a1a] dark:text-[#d9d9d9] p-4 rounded-lg w-[30%]"
       >
         <h1 className="text-center font-semibold text-2xl my-2">
           Welcome back!
@@ -101,7 +101,7 @@ const LoginForm = () => {
             <input
               ref={cinInputRef}
               type="text"
-              className="border outline-[#A1A1AA] py-1 px-4 rounded-sm"
+              className="border outline-[#A1A1AA] dark:bg-[#1a1a1a] py-1 px-4 rounded-sm"
             />
           </div>
           <div className="flex flex-col">
@@ -109,7 +109,7 @@ const LoginForm = () => {
             <input
               ref={passwordInputRef}
               type="Password"
-              className="border outline-[#A1A1AA] py-1 px-4 rounded-sm"
+              className="border outline-[#A1A1AA] dark:bg-[#1a1a1a]  py-1 px-4 rounded-sm"
             />
           </div>
           <motion.button
@@ -118,7 +118,7 @@ const LoginForm = () => {
               scale: 1.01,
             }}
             whileTap={{ scale: 0.9 }}
-            className="border bg-black shadow-custom-shadow rounded-md  py-3 mb-4 text-center text-white text-sm font-semibold "
+            className="border bg-black shadow-custom-shadow rounded-md  py-3 mb-4 text-center dark:bg-[#1a1a1a]  dark:border-none text-white text-sm font-semibold "
           >
             Login
           </motion.button>
