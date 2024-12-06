@@ -37,9 +37,7 @@ const LoginForm = () => {
         });
 
         if (response.status) {
-          console.log(response.status == 200);
 
-          console.log("this is data", response);
           setErr({ isvisible: true, txt: response?.message });
           setUser({
             firstName: response.data.user?.first_name,
@@ -50,13 +48,9 @@ const LoginForm = () => {
             "userInfo",
             `${response.data.user.first_name} ${response.data.user.last_name} `
           );
-          console.log(response.data.user.first_name);
-
           Navigate("/dashboard");
         }
       } catch (error) {
-        console.error(error);
-
         setErr({ isvisible: true, txt: error.response?.data.message });
       } finally {
         setIsLoading(false);
@@ -83,7 +77,7 @@ const LoginForm = () => {
           stiffness: 100,
           damping: 10,
         }}
-        className="bg-white dark:bg-[#1a1a1a] dark:text-[#d9d9d9] p-4 rounded-lg w-[30%]"
+        className="bg-white dark:bg-[#1a1a1a] dark:text-[#d9d9d9] p-4 rounded-lg sm:w-[80%] md:w-[60%]  lg:w-[30%]"
       >
         <h1 className="text-center font-semibold text-2xl my-2">
           Welcome back!

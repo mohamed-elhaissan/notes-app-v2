@@ -78,13 +78,17 @@ const AddNote = () => {
         onClick={() => setShowAddNote(!showAddNote)}
         whileTap={{ scale: 0.9 }}
         whileHover={{ scale: 1.02 }}
-        className="bg-black text-sm px-2  rounded-md py-2 mb-5 text-white flex items-center gap-1 shadow-custom-shadow cursor-pointer"
+        className="bg-black text-sm px-2  rounded-md py-2 mb-5 text-white flex items-center justify-center gap-1 shadow-custom-shadow cursor-pointer"
       >
-        <FiPlus />
-        New Notes
+        <FiPlus className="self-center" />
+        <p className="sm:hidden  md:block lg:block">New Notes</p>
       </motion.button>
       {showAddNote && (
-        <motion.div className="fixed z-40 flex items-center justify-center bg-slate-900/20 backdrop-blur w-full h-full left-0 top-0 ">
+        <motion.div className="fixed z-50 flex items-center justify-center bg-slate-900/20 backdrop-blur w-full h-full left-0 top-0   "
+        style={{
+          zIndex : 99
+        }}
+        >
           <AnimatePresence>
             <motion.form
               initial={{ y: -10, scale: 0, opacity: 0 }}
@@ -96,7 +100,7 @@ const AddNote = () => {
                 damping: 15,
                 duration: 0.1,
               }}
-              className="bg-white flex flex-col p-4 w-[30%] rounded"
+              className="bg-white sm:w-[80%] md:w-[60%]  lg:w-[30%]  flex flex-col p-4 w-[30%] rounded"
               onSubmit={handleSubmit}
             >
               <label htmlFor="title" className="font-semibold tracking-tighter">

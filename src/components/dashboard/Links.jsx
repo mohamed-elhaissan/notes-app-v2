@@ -38,8 +38,11 @@ const LinksItems = () => {
           ease: "easeInOut",
         }}
       >
-        <NavLink className="flex items-center justify-between dark:text-[#404040]" to="/dashboard">
-          Notes <IoIosArrowRoundForward />
+        <NavLink
+          className="flex items-center justify-between sm:text-xs md:text-md lg:text-md dark:text-[#404040]"
+          to="/dashboard"
+        >
+          <p>Notes</p> <IoIosArrowRoundForward />
         </NavLink>
       </motion.span>
       <motion.span
@@ -50,7 +53,7 @@ const LinksItems = () => {
           ease: "easeInOut",
         }}
       >
-        <NavLink className="flex items-center justify-between   " to="/users">
+        <NavLink className="flex sm:text-xs md:text-sm lg:text-sm items-center justify-between   " to="/users">
           People <IoIosArrowRoundForward />
         </NavLink>
       </motion.span>
@@ -62,7 +65,10 @@ const LinksItems = () => {
           ease: "easeInOut",
         }}
       >
-        <NavLink className="flex items-center justify-between   " to="/settings">
+        <NavLink
+          className="flex items-center justify-between  sm:text-xs md:text-sm lg:text-sm "
+          to="/settings"
+        >
           Setting <IoIosArrowRoundForward />
         </NavLink>
       </motion.span>
@@ -80,7 +86,7 @@ const LinksItems = () => {
               duration: 0.1,
             }}
             key={index}
-            className="relative text-sm hover:text-white overflow-hidden dark:border-[#404040] hover:before:h-[100%] rounded-md py-1 mb-1  gap-2 cursor-pointer  border px-2 flex items-center "
+            className="relative text-sm  sm:text-xs md:text-sm lg:text-sm hover:text-white overflow-hidden dark:border-[#404040] hover:before:h-[100%] rounded-md py-1 mb-1  gap-2 cursor-pointer  border px-2 flex items-center "
           >
             <GoPerson />
             <p> {item.last_name.toLowerCase()}</p>
@@ -89,7 +95,7 @@ const LinksItems = () => {
       </div>
       <NavLink
         to="/users"
-        className="px-2 hover:font-bold transition-all duration-100 ease-in-out  rounded-md py-2  gap-2 cursor-pointer text-center border"
+        className="px-2 sm:text-xs md:text-sm lg:text-sm hover:font-bold transition-all duration-100 ease-in-out  rounded-md py-2  gap-2 cursor-pointer text-center border"
       >
         show more
       </NavLink>

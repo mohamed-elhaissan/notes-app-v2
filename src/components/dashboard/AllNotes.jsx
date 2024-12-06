@@ -32,12 +32,9 @@ export default function AllNotes() {
         onCancel={setConfirmDelete}
       />
       {showUpdateDiv && (
-        <UpdateNote
-          id={updateItem.id}
-          Oncancel={setShowUpdateDiv}
-        />
+        <UpdateNote id={updateItem.id} Oncancel={setShowUpdateDiv} />
       )}
-      <div className="p-5 w-[80%] mx-auto">
+      <div className="p-5 w-[80%] sm:w-full mx-auto">
         <h1 className="text-2xl mb-8">
           <span className="text-xl text-indigo-300">Hey</span>,{" "}
           {localStorage.getItem("userInfo").toLowerCase()}
@@ -84,7 +81,11 @@ export default function AllNotes() {
                   duration: 0.1,
                 }}
                 key={index}
-                className={index % 2 == 0 ? "bg-white dark:bg-[#d9d8da] border mb-1" : "bg-slate-100 dark:bg-[#d9d8da] "}
+                className={
+                  index % 2 == 0
+                    ? "bg-white dark:bg-[#d9d8da] border mb-1"
+                    : "bg-slate-100 dark:bg-[#d9d8da] "
+                }
               >
                 <td className="p-3 text-sm text-gray-700 first-letter:uppercase">
                   {item.content}
@@ -97,7 +98,7 @@ export default function AllNotes() {
                 </td>
                 <td className="p-3 text-sm text-gray-700">
                   <span
-                    className="px-2 py-1 text-xs font-medium rounded  text-green-800"
+                    className="px-2 py-1 overflow-auto text-xs font-medium rounded  text-green-800 z-0"
                     style={{
                       background: item.is_owner ? "#FEF08A" : "#BBF7D0",
                     }}
@@ -105,7 +106,9 @@ export default function AllNotes() {
                     {item.is_owner
                       ? "you"
                       : item.shared_with[0]?.last_name.toLowerCase()}
-                    <sup>({item.shared_with[0]?.last_name})</sup>
+                    <sup className="block relative -z-0 sm:hidden lg:block md:block ">
+                      ({item.shared_with[0]?.last_name})
+                    </sup>
                   </span>
                 </td>
                 <td className="p-3 text-sm font-bold  text-blue-500 ">
@@ -121,8 +124,8 @@ export default function AllNotes() {
                     {item.is_owner && (
                       <MdOutlineEditNote
                         onClick={() => {
-                         setShowUpdateDiv(true);
-                         setUpdateItem({id : item.id})
+                          setShowUpdateDiv(true);
+                          setUpdateItem({ id: item.id });
                         }}
                       />
                     )}
