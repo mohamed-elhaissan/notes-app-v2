@@ -106,9 +106,7 @@ export default function AllNotes() {
                     {item.is_owner
                       ? "you"
                       : item.shared_with[0]?.last_name.toLowerCase()}
-                    <sup className="block relative -z-0 sm:hidden lg:block md:block ">
-                      ({item.shared_with[0]?.last_name})
-                    </sup>
+                    <sup>({item.shared_with[0]?.last_name})</sup>
                   </span>
                 </td>
                 <td className="p-3 text-sm font-bold  text-blue-500 ">

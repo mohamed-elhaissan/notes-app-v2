@@ -79,7 +79,7 @@ const UpdateNote = ({ id, Oncancel }) => {
         }}
         className="fixed z-20 flex flex-col  items-center justify-center bg-slate-900/20 backdrop-blur w-full h-full left-0 top-0 "
       >
-        <div className="bg-white p-5 rounded w-1/3">
+        <div className="bg-white sm:w-[80%] md:w-[60%]  lg:w-[30%] p-5 rounded w-1/3">
           <p className="text-center opacity-50 text-sm mb-5">
             Upadte Your Note
           </p>
