@@ -54,6 +54,18 @@ const LinksItems = () => {
           People <IoIosArrowRoundForward />
         </NavLink>
       </motion.span>
+      <motion.span
+        whileTap={{ scale: 0.9 }}
+        className="rounded-md py-1 mb-1  gap-2 cursor-pointer  border px-2"
+        whileHover={{ background: "black", color: "white" }}
+        transition={{
+          ease: "easeInOut",
+        }}
+      >
+        <NavLink className="flex items-center justify-between   " to="/settings">
+          Setting <IoIosArrowRoundForward />
+        </NavLink>
+      </motion.span>
 
       <div className="mt-10 flex flex-col gap-1 relative hoveredElement mb-5">
         {classMates?.slice(0, 5).map((item, index) => (
